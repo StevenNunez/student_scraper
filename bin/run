@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/scraper'
+require_relative '../lib/student'
+
+puts "Welcome to the student site circa 1995"
+
+scraper = Scraper.new("http://learn-co-students.github.io/deploy-on-day-1-web-1115/")
+students_hash = scraper.scrape_index
+students = Student.new_from_collection(students_hash)
+
+students.each.with_index(1) do |student, i|
+  puts "#{i}. #{student.name}"
+end

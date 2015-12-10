@@ -29,19 +29,23 @@ class Scraper
 
   def convert_students_to_hash(student_nodes)
     student_nodes.map do |student|
-      name = student.css('.big-comment a').text
-      tagline = student.css(".home-blog-post-meta").text
-      bio = student.css('.excerpt p').text
-      detail_page = student.css('.blog-thumb a').attr("href").value
-      image_url = student.css('.blog-thumb img').attr("src").value
-
-      {
-        name: name,
-        tagline: tagline,
-        bio: bio,
-        detail_page: detail_page,
-        image_url: image_url
-      }
+      convert_student_to_hash(student)
     end
+  end
+
+  def convert_student_to_hash(student_node)
+    name = student_node.css('.big-comment a').text
+    tagline = student_node.css(".home-blog-post-meta").text
+    bio = student_node.css('.excerpt p').text
+    detail_page = student_node.css('.blog-thumb a').attr("href").value
+    image_url = student_node.css('.blog-thumb img').attr("src").value
+
+    {
+      name: name,
+      tagline: tagline,
+      bio: bio,
+      detail_page: detail_page,
+      image_url: image_url
+    }
   end
 end

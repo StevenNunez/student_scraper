@@ -3,14 +3,22 @@ describe Scraper do
     it "finds all users on the home page" do
       url = "http://learn-co-students.github.io/deploy-on-day-1-web-1115/"
       scraper = Scraper.new(url)
-      students = scraper.scrape_index
+      students = nil
+
+      VCR.use_cassette("student_index") do
+        students = scraper.scrape_index
+      end
+
       expect(students.count).to eq(29)
     end
 
     it "returns a hash respresenting the students" do
       url = "http://learn-co-students.github.io/deploy-on-day-1-web-1115/"
       scraper = Scraper.new(url)
-      students = scraper.scrape_index
+      students = nil
+      VCR.use_cassette("student_index") do
+        students = scraper.scrape_index
+      end
 
       student = students.first
       expect(student[:name]).to eq("Lisa Jeon")
